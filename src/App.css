@@ -1,0 +1,72 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.app-container{
+  width: 100vw;  
+  }
+
+  h1,h2, .new-row-add{
+    text-align: center;
+
+  }
+
+table,tbody,thead,th,tr,td{
+  border: thin solid #ffffff;
+  border-collapse: collapse;
+  margin: 20px auto;
+}
+
+th{
+  padding: 0 30px;
+  font-size: 1.5rem;
+text-align: center;
+background-color: #7AA1D2;
+color: #E1F5C4;
+}
+
+td{
+  padding: 0 30px;
+  font-size: 1.2rem;
+  text-align: center;
+  color: #bfe9ff;
+}
+
+tr{
+  background-color: #ff6e7f;
+}
+
+.action{
+  display: flex;
+  gap: 20px;
+}
+.edit, .delete{
+  padding: 0 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  background-color: rgb(207, 33, 33);
+}
+
+.edit{
+  padding: 0 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  background-color: rgb(49, 49, 160);
+}
+
+.submit{
+  border-radius: 5px;
+  margin-right: 10px;
+  padding: 0 5px;
+  border: none;
+  cursor: pointer;
+  color: white;
+  background-color: rgb(66, 211, 66);
+}
