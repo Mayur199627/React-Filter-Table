@@ -3,6 +3,8 @@ import './App.css'
 import data from './Data.json'
 import ReadOnly from './ReadOnly'
 import EditableRow from './EditableRow'
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 function App() {
   const [tableData, setTableData] = useState([])
@@ -13,9 +15,7 @@ function App() {
     contact: "",
     email: "",
     city: ""
-  })
-
-  
+  })  
   const [editFormdata, setEditFormData] = useState({
     name: "",
     age: "",
@@ -25,6 +25,17 @@ function App() {
   })
 
   const [editId, setEditId] = useState(null)
+
+const [currentPage, setCurrentPage] = useState(1)
+const recordsPerPage = 5;
+const lastIndex = currentPage * recordsPerPage
+const firstIndex = lastIndex - recordsPerPage
+const records = tableData.slice(firstIndex, lastIndex)
+const nPages = Math.ceil(tableData.length / recordsPerPage)
+const numbers = [...Array(nPages + 1).keys()].slice(1)
+
+
+
 
   useEffect(() => {
     setTableData(data)
@@ -148,6 +159,24 @@ function App() {
     }
   }
 
+  const prevPage = () =>{
+    if(currentPage !== 1){
+      setCurrentPage(currentPage-1)
+    }
+  } 
+  
+  
+  const nextPage = () =>{    
+    if(currentPage !== nPages){
+      setCurrentPage(currentPage+1)
+    }
+  }
+  
+  const changeCPage = (id) =>{
+    setCurrentPage(id)  
+  }
+  
+
   return (
     <div className="app-container">
       <h1>Add New Row :</h1>
@@ -163,8 +192,8 @@ function App() {
       </div>
 
       <form onSubmit={handleEditFormSubmit}>
+        <h1>User Data</h1>
         <table>
-        <caption><h1>User Data</h1></caption>
           <thead>
             <tr>
               <th onClick={()=>sorting("name")}>Name <span style={{fontSize:'0.9rem', cursor:"pointer"}} >⬆⬇</span></th>
@@ -177,7 +206,7 @@ function App() {
           </thead>
           <tbody>
             {
-              tableData.map((ele) => {
+              records.map((ele) => {
                 return (
                   <>
                   {editId === ele.id ? <EditableRow editFormdata={editFormdata} HandleEditChange={HandleEditChange} handleCancelEdit={handleCancelEdit}/> :<ReadOnly ele={ele} handleEdit={handleEdit} handleDelete={handleDelete}/> }
@@ -186,10 +215,27 @@ function App() {
               })
             }
           </tbody>
-
         </table>
       </form>
-
+      
+      <nav>
+              <ul className='pagination'>
+                <li className='page-item'>
+                  <a href="#" className='page-link' onClick={prevPage}>PREV</a>
+                </li>
+                {
+                  numbers.map((n,i)=>{
+                    return (<li className={`page-item ${currentPage === n ? 'active' : ''}`} key={i}>
+                    <a href="#" className='page-link' onClick={()=>changeCPage(n)}>{n}</a>
+                    </li>)
+                  })
+                }
+                
+                <li className='page-item'>
+                  <a href="#" className='page-link' onClick={nextPage}>NEXT</a>
+                </li>
+              </ul>
+            </nav>
     </div>
   )
 }
